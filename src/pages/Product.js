@@ -16,8 +16,16 @@ const Product = () => {
     });
   };
   useEffect(() => {
-    const fetchedProduct = data.product.find((p) => p.id === parseInt(id, 10));
-    setProduct(fetchedProduct);
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/products/${id}`);
+        const data = await response.json();
+        setProduct(data);
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
+    };
+    fetchProduct();
   }, [id]);
 
   if (!product) {

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
@@ -12,16 +12,32 @@ import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import Lottie from "react-lottie";
 import animationData from "../lottie/shoppingCart.json";
+import animationData2 from "../lottie/orderPlaced.json";
 
 const Cart = () => {
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState([]);
   const cart = useSelector((state) => state.cart);
-  console.log(cart);
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [conform, setConform] = useState(false);
   useEffect(() => {
     dispatch(getTotals());
   }, [cart, dispatch]);
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/users");
+        const data = await response.json();
+        setLoading(false);
+        setUser(data);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+    fetchUser();
+  }, []);
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
     toast("Cart Increased", {
@@ -44,11 +60,11 @@ const Cart = () => {
     dispatch(clearCart());
   };
   const handleCheckout = () => {
-    // if (user.success) {
-    //   navigate("/shipping");
-    // } else {
-    //   navigate("/login");
-    // }
+    if (user.length === 0) {
+      navigate("/login");
+    } else {
+      setConform(true);
+    }
   };
   const defaultOptions = {
     loop: true,
@@ -58,8 +74,16 @@ const Cart = () => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-  return (
-    <div className="cart-container">
+  const defaultOptions2 = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData2,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+  return loading ? null : (
+    <div className="cart-container relative">
       <h2>Shopping Cart</h2>
       {cart.cartItems.length === 0 ? (
         <div className="cart-empty">
@@ -160,6 +184,36 @@ const Cart = () => {
         </div>
       )}
       <Toaster />
+      {conform && (
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black opacity-50"
+          onClick={() => {
+            handleClearCart();
+            navigate("/");
+            setConform(false);
+          }}
+        ></div>
+      )}
+      {!conform ? null : (
+        <div>
+          <div className="h-[320px] w-[500px] absolute bg-white shadow-lg top-[20%] left-[35%] flex flex-col justify-around items-center">
+            <div>
+              <Lottie options={defaultOptions2} height={200} width={200} />
+            </div>
+            <h1>Your Order is Placed</h1>
+            <button
+              className="w-[100px] h-[40px] rounded-[20px] border-2 border-[#7491e1] hover:bg-[#7491e1] hover:text-white hover:border-[#e6dcec] hover:border-2 transition duration-500 mb-2"
+              onClick={() => {
+                setConform(false);
+                handleClearCart();
+                navigate("/");
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

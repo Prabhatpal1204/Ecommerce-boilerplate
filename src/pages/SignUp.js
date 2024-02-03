@@ -1,7 +1,23 @@
 import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 const Signup = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = React.useState([]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/users");
+        const data = await response.json();
+        console.log(data);
+        if (user[0].loggedIn) navigate("/");
+        setUser(data);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+    fetchUser();
+  }, []);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setuserName] = useState("");
@@ -13,6 +29,45 @@ const Signup = () => {
     border: "1px solid rgba( 255, 255, 255, 0.18 )",
     height: "80vh",
   };
+  const signup = async (userData) => {
+    try {
+      const response = await fetch("http://localhost:8000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        // Handle error responses here
+        const errorMessage = await response.text();
+        throw new Error(`Signup failed: ${errorMessage}`);
+      }
+
+      // Signup successful, you can handle the success response here
+      const successMessage = await response.json();
+      console.log("Signup successful:", successMessage);
+    } catch (error) {
+      console.error("Error during signup:", error.message);
+    }
+  };
+
+  // Example usage:
+  const userCredentials = {
+    email,
+    password,
+    username,
+    loggedIn: false,
+  };
+  const handleSignup = (e) => {
+    e.preventDefault();
+    signup(userCredentials);
+    setEmail("");
+    setPassword("");
+    setuserName("");
+  };
+
   return (
     <div className=" h-[80vh]">
       <div
@@ -33,6 +88,7 @@ const Signup = () => {
               className="p-2 w-[400px] h-[40px] border-2 border-[#ebe9e9] rounded-[10px]"
               type="text"
               placeholder="Name"
+              value={username}
               onChange={(e) => {
                 setuserName(e.target.value);
               }}
@@ -43,6 +99,7 @@ const Signup = () => {
               className="p-2 w-[400px] h-[40px] border-2 border-[#ebe9e9] rounded-[10px]"
               type="text"
               placeholder="Email"
+              value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
@@ -53,6 +110,7 @@ const Signup = () => {
               type="password"
               className="p-2 w-[400px] h-[40px] border-2 border-[#ebe9e9] rounded-[10px]"
               placeholder="Password"
+              value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
@@ -61,6 +119,7 @@ const Signup = () => {
             <button
               type="submit"
               className="w-[100px] h-[40px] rounded-[20px] border-2 border-[#7491e1] hover:bg-[#7491e1] hover:text-white hover:border-[#e6dcec] hover:border-2 transition duration-500"
+              onClick={(e) => handleSignup(e)}
             >
               Sign Up
             </button>

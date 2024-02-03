@@ -1,81 +1,24 @@
-# Ecommerce (React) Coding Assessment
+This is to explain how my project works
+Some assumptions: -
+1) Only one user can exist(as only json server was in used)
+2) No encryption for password (lacking backend functionalities)
+Screen Shots:-
+Home Page-
+![image](https://github.com/Prabhatpal1204/Ecommerce-boilerplate/assets/71927569/64426b61-933d-45a7-95c9-4bc37235f2cd)
+Login Page-
+![image](https://github.com/Prabhatpal1204/Ecommerce-boilerplate/assets/71927569/060d8775-40d7-4775-8e97-249f5e5af938)
+SignUp Page-
+![image](https://github.com/Prabhatpal1204/Ecommerce-boilerplate/assets/71927569/e3731b24-4f56-4845-afc2-b38c13f3c905)
+Cart Page(empty) -
+![image](https://github.com/Prabhatpal1204/Ecommerce-boilerplate/assets/71927569/b778c5be-891c-4590-9c50-a1bb3de6713b)
+Cart Page(with items) -
+![image](https://github.com/Prabhatpal1204/Ecommerce-boilerplate/assets/71927569/198d119f-91d9-42a7-8f45-a33c62eaa555)
+Order Placed-
+![image](https://github.com/Prabhatpal1204/Ecommerce-boilerplate/assets/71927569/a4c40cba-b5c0-4271-8b69-cb44bcdfad22)
+Route Protection(Not Found Page)-
+![image](https://github.com/Prabhatpal1204/Ecommerce-boilerplate/assets/71927569/eb6fb89a-6160-4ff1-b2d2-2e8702c47e4d)
 
-## Overview
 
-To complete this assessment, you will need to use this [Ecommerce-boilerplate](https://github.com/gurukishore111/Ecommerce-boilerplate) web app.
 
-The purpose of this assessment is to assess your **skills and approach to composing a simple web app** given an API feed.
 
-## What to do?
-
-Your goal is to implement an eCommerce application. The CSS framework/library is totally up to you.
-
-Although it's a very basic exercise, we will be looking for simple, well-designed, well-commented, and tested code in the submission.
-
-Please include a `README` with setup instructions and any other documentation you created as part of your solution.
-
-Also, add very short info for the following to your `README`:
-
-- Describe all the application functionalities
-- Are there any improvements you could make to your submission?
-- What would you do differently if you were allocated more time?
-
-Once you complete implementation, please add the link to the hosted repository (e.g. Github). Alternatively, you may submit your code as a ZIP file too.
-
-(NOTE: You have to use the latest version of v18 and react-router-dom v6)
-
-## How should the application work?
-
-The user of this react application should be able to view all the products. The application should have the following workflow,
-
-1. Create the login/register functionality.
-2. Once the user is authenticated
-3. Users can add the products to the cart page
-4. Also user can add their favourite products
-
-## Development Setup
-
-- Clone this repo
-- `npm install` - To install the dependencies
-- `npm run server` - To start the JSON server
-- `npm start` - To start the react app
-
-## This project's user interface should like this.
-
-### Login/Register page
-
-<img width="1512" alt="Screenshot 2022-07-24 at 10 44 13 AM" src="https://user-images.githubusercontent.com/52570524/180701451-5ccce009-0384-426c-b1bc-d7536fd7b142.png">
-
-### Home page
-
-<img width="1512" alt="Screenshot 2022-07-24 at 10 45 58 AM" src="https://user-images.githubusercontent.com/52570524/180701523-b679c753-68ff-47f1-9a1b-f4cc04d88fea.png">
-
-### Product detail page
-
-<img width="675" alt="Screenshot 2022-07-24 at 10 53 17 AM" src="https://user-images.githubusercontent.com/52570524/180701655-7c3d3120-ff81-445a-81d9-b2152db8a776.png">
-
-### Cart page
-
-<img width="1415" alt="Screenshot 2022-07-24 at 10 50 18 AM" src="https://user-images.githubusercontent.com/52570524/180701661-a587033d-4616-40f8-9260-dfd3e8b97152.png">
-
-<img width="1472" alt="Screenshot 2022-07-24 at 10 51 16 AM" src="https://user-images.githubusercontent.com/52570524/180701674-31c7e11c-56b3-4f24-83c4-e9d582c4b3f8.png">
-
-## API Usage
-
-API can be launched using npm run server.
-| Endpoint | Result |
-|------------------------------|-----------------------------------------------------|
-| /users | Lists all available users |
-| /products | Lists all available products |
-| /orders | Lists all available orders  
-| /favourites | Lists all available favourites
-
-Refer - [JSON sever](https://www.npmjs.com/package/json-server) docs for more information
-
-## Bonus
-
-- Feel free to add functionality (not mandatory)
-- Use redux/context for state management
-- Well explained readme (screenshot etc)
-
----
+ 

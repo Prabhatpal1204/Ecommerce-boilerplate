@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 const Signup = () => {
   const navigate = useNavigate();
   const [user, setUser] = React.useState([]);
@@ -47,6 +48,10 @@ const Signup = () => {
 
       // Signup successful, you can handle the success response here
       const successMessage = await response.json();
+      toast.success("Signup successful");
+      setTimeout(() => {
+        navigate("/Login");
+      }, 1000);
       console.log("Signup successful:", successMessage);
     } catch (error) {
       console.error("Error during signup:", error.message);
@@ -60,8 +65,30 @@ const Signup = () => {
     username,
     loggedIn: false,
   };
+
   const handleSignup = (e) => {
     e.preventDefault();
+    //regx for email
+    const regx = /\S+@\S+\.\S+/;
+    if (!regx.test(email)) {
+      toast.error("Invalid Email");
+      setEmail("");
+
+      return;
+    }
+    if (password.length < 6) {
+      toast.error("Password should be atleast 6 characters long");
+
+      setPassword("");
+
+      return;
+    }
+    if (username.length < 3) {
+      toast.error("Username should be atleast 3 characters long");
+
+      setuserName("");
+      return;
+    }
     signup(userCredentials);
     setEmail("");
     setPassword("");
@@ -136,6 +163,7 @@ const Signup = () => {
           <img src="./login.svg" alt="Signup" height={600} width={600} />
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

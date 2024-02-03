@@ -64,7 +64,7 @@ const Navbar = () => {
             </div>
           </Link>
 
-          <div>
+          <div className="">
             <ul className="flex justify-around items-center w-[300px] mr-20">
               <Link to="/">
                 <li className=" font-protest font-bold text-xl hover:text-white cursor-pointer">

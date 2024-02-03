@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 const Login = () => {
   const [loading, setLoading] = React.useState(true);
   const [email, setEmail] = React.useState("");
@@ -37,6 +38,11 @@ const Login = () => {
     // console.log(user);
     // console.log(email, password);
     e.preventDefault();
+    const regx = /\S+@\S+\.\S+/;
+    if (!regx.test(email)) {
+      toast.error("Invalid Email");
+      return;
+    }
     const userIndex = user.findIndex((u) => {
       console.log(u.email);
       return u.email === email;
@@ -57,7 +63,7 @@ const Login = () => {
             console.error("Error during login:", error.message);
           });
       } else {
-        alert("Wrong Password");
+        toast.error("Password did not match");
       }
     } else {
       alert("User not found");
@@ -118,6 +124,7 @@ const Login = () => {
           </div>
         </div>
       )}
+      <Toaster />
     </>
   );
 };
